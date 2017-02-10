@@ -1,61 +1,49 @@
-SHIP_INFO = [
-    ("Aircraft Carrier", 5),
-    ("Battleship", 4),
-    ("Submarine", 3),
-    ("Cruiser", 3),
-    ("Patrol Boat", 2)
-]
-
-BOARD_SIZE = 10
-
-VERTICAL_SHIP = '|'
-HORIZONTAL_SHIP = '-'
-EMPTY = 'O'
-MISS = '.'
-HIT = '*'
-SUNK = '#'
-
-class BattleShip:
-
-    def clear_screen():
-        print("\033c", end="")
+from playerclass import Player
+import globvars as g
+from sys import exit
+import pdb
 
 
-    def print_board_heading():
-        print("   " + " ".join([chr(c) for c in range(ord('A'), ord('A') + BOARD_SIZE)]))
+class Game:
+    def __init__(self):
+        self.welcome()
+        self.p = [Player(), Player()]
+        print("Let the battle commence!")
+        self.run()
 
+    def welcome(self):
+        g.clear_screen()
+        print("\n"+"_" * 40+"\n")
+        print("        Welcome to BATTLESHIP!!")
+        print("_" * 40+"\n")
 
-    def print_board(board):
-        print_board_heading()
+    def run(self):
+        turn = 1
+        while True:
+            g.clear_screen()
+            # Set Attacker and Defender
+            defender = self.p[turn % 2]
+            attacker = self.p[(turn+1) % 2]
 
-        row_num = 1
-        for row in board:
-            print(str(row_num).rjust(2) + " " + (" ".join(row)))
-            row_num += 1
+            attacker.command_center()
+            # pdb.set_trace()
+            attacker.attack(defender)
 
-    def get_user_names(self):
-        pass
+            if self.game_over():
+                print("Game is over!")
+                exit(0)
+            turn += 1
+            input(
+                "{}, please give the console to the other player.\n\n"
+                "Hit Enter when you are ready {}.".format(
+                                                        attacker.name,
+                                                        defender.name)
+                )
 
-    # prompt users to place ship
-    # validate user input
+    def game_over(self):
+        if self.p[0].ship_count > 0 and self.p[1].ship_count > 0:
+            return False
+        return True
 
-
-    def update_board(self):
-        pass
-
-    def turn(self):
-        pass
-
-    # clear screen after each turn
-    # Prompt new player (by name) to start turn and then print the board
-    # Prompt player for guess
-    # validate guess
-    # Display results
-
-
-
-    ## EXTRA CREDIT *******
-    #  Clear screen after invalid entry
-    #  Error messages are detailed and explicit.  Include the invalid guess information
-    #  Display both the player's boards on the screen showing the ship positions
-    if __name__ == "__main__":
+        # exit
+Game()
