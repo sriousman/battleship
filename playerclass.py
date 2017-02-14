@@ -57,7 +57,7 @@ class Player:
         # pdb.set_trace()
         try:
             column = ord(input("Column Letter: ").upper())
-            if column >= 65 and column <= 74:
+            if 65 <= column <= 74:
                 return column
             else:
                 print("Invalid Column. Try again.")

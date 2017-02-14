@@ -1,5 +1,5 @@
 SHIP_INFO = [
-    ("Aircraft Carrier", 5)
+    ("Aircraft Carrier", 5),
     ("Battleship", 4),
     ("Submarine", 3),
     ("Cruiser", 3),

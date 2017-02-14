@@ -46,4 +46,5 @@ class Game:
         return True
 
         # exit
-Game()
+if __name__ == '__main__':
+    Game()
